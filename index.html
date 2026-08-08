@@ -628,31 +628,44 @@
 
     <!-- Contact Form -->
     <div class="contact-form reveal">
-      <div style="font-family:var(--ff-head);font-size:1rem;font-weight:700;margin-bottom:1.5rem;color:var(--text-1)">Send a Message</div>
-      <div class="form-row">
-        <div class="form-field">
-          <label class="form-label">Your Name</label>
-          <input type="text" class="form-input" id="form-name" placeholder="John Doe">
-        </div>
-        <div class="form-field">
-          <label class="form-label">Your Email</label>
-          <input type="email" class="form-input" id="form-email" placeholder="john@example.com">
-        </div>
-      </div>
-      <div class="form-field">
-        <label class="form-label">Subject</label>
-        <input type="text" class="form-input" id="form-subject" placeholder="Internship Opportunity / Collaboration">
-      </div>
-      <div class="form-field">
-        <label class="form-label">Message</label>
-        <textarea class="form-textarea" id="form-msg" placeholder="Tell me about the opportunity or project..."></textarea>
-      </div>
-      <button class="form-submit" onclick="handleFormSubmit()">Send Message →</button>
-      <div class="form-success" id="form-success">✓ Message sent! I'll get back to you soon.</div>
+    <form id="contact-form" onsubmit="handleFormSubmit(event)">
+    <div style="font-family:var(--ff-head);font-size:1rem;font-weight:700;margin-bottom:1.5rem;color:var(--text-1)">
+        Send a Message
     </div>
-  </div>
-</section>
 
+    <form id="contact-form" onsubmit="handleFormSubmit(event)">
+
+        <div class="form-row">
+            <div class="form-field">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-input" id="form-name" placeholder="John Doe" required>
+            </div>
+
+            <div class="form-field">
+                <label class="form-label">Your Email</label>
+                <input type="email" class="form-input" id="form-email" placeholder="john@example.com" required>
+            </div>
+        </div>
+
+        <div class="form-field">
+            <label class="form-label">Subject</label>
+            <input type="text" class="form-input" id="form-subject" placeholder="Internship Opportunity / Collaboration">
+        </div>
+
+        <div class="form-field">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" id="form-msg" placeholder="Tell me about the opportunity or project..." required></textarea>
+        </div>
+<button class="form-submit" onclick="handleFormSubmit()">
+    Send Message →
+</button>
+
+        <div class="form-success" id="form-success" style="display:none;">
+            ✓ Message sent successfully!
+        </div>
+
+    </form>
+</div>
 <!-- FOOTER -->
 <footer>
   <div class="foot-logo">Rabisankar Pradhan</div>
@@ -692,6 +705,18 @@
   </div>
 </div>
 
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+emailjs.init({
+    publicKey: "tE_aWmSuscWEi2ko5"
+});
+</script>
+
+<!-- Your JS -->
 <script src="script.js"></script>
+
 </body>
 </html>
+

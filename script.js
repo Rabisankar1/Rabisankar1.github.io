@@ -212,23 +212,71 @@ document.querySelectorAll('.proj-card').forEach(card => {
 /* ═══════════════════════════
    CONTACT FORM
 ═══════════════════════════ */
-function handleFormSubmit() {
-  const name = document.getElementById('form-name').value;
-  const email = document.getElementById('form-email').value;
-  const msg = document.getElementById('form-msg').value;
-  if (!name || !email || !msg) {
-    alert('Please fill in all required fields.');
-    return;
-  }
-  // In production: POST to backend API or mailto link
-  const subject = document.getElementById('form-subject').value || 'Portfolio Inquiry';
-  const body = `Name: ${name}\nEmail: ${email}\n\n${msg}`;
-  const mailto = `mailto:pradhanrabisankar328@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  window.location.href = mailto;
-  document.getElementById('form-success').style.display = 'block';
-  setTimeout(() => { document.getElementById('form-success').style.display = 'none'; }, 4000);
-}
+/* ═══════════════════════════
+   CONTACT FORM (EmailJS)
+═══════════════════════════ */
 
+function handleFormSubmit(event) {
+
+    event.preventDefault();
+
+    const name = document.getElementById("form-name").value.trim();
+    const email = document.getElementById("form-email").value.trim();
+    const subject =
+        document.getElementById("form-subject").value.trim() ||
+        "Portfolio Contact";
+    const message = document.getElementById("form-msg").value.trim();
+
+    if (!name || !email || !message) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    const submitBtn = document.querySelector(".form-submit");
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = "Sending...";
+
+    emailjs.send(
+        "service_pqqd9yi",
+        "template_uog25z9",
+        {
+            from_name: name,
+            from_email: email,
+            subject: subject,
+            message: message
+        }
+    )
+
+    .then(function () {
+
+        document.getElementById("form-success").style.display = "block";
+
+        document.getElementById("contact-form").reset();
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = "Send Message →";
+
+        setTimeout(function () {
+
+            document.getElementById("form-success").style.display = "none";
+
+        }, 4000);
+
+    })
+
+    .catch(function (error) {
+
+        console.error(error);
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = "Send Message →";
+
+        alert("❌ Failed to send message.");
+
+    });
+
+}
 /* ═══════════════════════════
    AI CHATBOT (Anthropic API)
 ═══════════════════════════ */
